@@ -1,5 +1,6 @@
 package com.king.core;
 
+import com.king.utils.Constants;
 import javassist.CannotCompileException;
 import javassist.NotFoundException;
 import org.apache.commons.logging.Log;
@@ -15,18 +16,17 @@ import java.util.List;
 /**
  * Created by king on 2017/4/25.
  */
-public class ClassContainer {
-    private static Log log = LogFactory.getLog(ClassContainer.class);
+public class Container {
+    private static Log log = LogFactory.getLog(Container.class);
 
-    private static String basePath = "/Users/king/com/king";
-    private String targetPath;
+    private String name;
     private ClassLoader classLoader;
     private File[] classFiles;
     private File[] jarFiles;
     private List<URL> jarResources;
 
-    public ClassContainer(String targetPath) throws Exception {
-        this.targetPath = targetPath;
+    public Container(String containerName) throws Exception {
+        this.name = containerName;
 
         //检查目标文件夹是否完整
         checkDir();
@@ -39,6 +39,10 @@ public class ClassContainer {
 
         //加载代码，编译并load到classloader
         loadAndCompileCode();
+    }
+
+    public String getName() {
+        return this.name;
     }
 
     public Class getClz(String name) throws ClassNotFoundException {
@@ -56,7 +60,7 @@ public class ClassContainer {
     }
 
     private void checkDir() throws FileNotFoundException {
-        String loadPath = basePath + File.separatorChar + targetPath;
+        String loadPath = Constants.CONTAINER_BASE_PATH + File.separatorChar + name;
         File classDir = new File(loadPath + File.separatorChar + "class");
         File jarDir = new File(loadPath + File.separatorChar + "jar");
 

@@ -26,4 +26,15 @@ public class JustTest {
         });
         System.out.println(list[list.length-1].getName());
     }
+
+    @Test
+    public void test2() {
+        File file = new File("/Users/king/com/king/forMiniTool");
+        System.out.println(file.exists());
+        System.out.println(file.canWrite());
+        if (!file.exists()) {
+            System.out.println(file.mkdir());
+            System.out.println(file.canWrite());
+        }
+    }
 }

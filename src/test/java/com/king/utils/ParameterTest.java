@@ -13,8 +13,8 @@ import java.util.List;
 public class ParameterTest {
     @Test
     public void parseParameters() {
-        Parameter p1 = new Parameter("int", "a", 1);
-        Parameter p2 = new Parameter("int", "b", 2);
+        Parameter p1 = new Parameter(ParamType.INT, "a", "a", 1);
+        Parameter p2 = new Parameter(ParamType.INT, "b", "b", 2);
         List<Parameter> list = new ArrayList<Parameter>();
         list.add(p1);
         list.add(p2);

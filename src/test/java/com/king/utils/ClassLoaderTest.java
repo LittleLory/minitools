@@ -1,6 +1,6 @@
 package com.king.utils;
 
-import com.king.core.ClassContainer;
+import com.king.core.Container;
 import org.junit.Test;
 
 import java.lang.reflect.Method;
@@ -11,7 +11,7 @@ import java.lang.reflect.Method;
 public class ClassLoaderTest {
     @Test
     public void test() throws Exception {
-        ClassContainer classLoader = new ClassContainer("contract");
+        Container classLoader = new Container("contract");
         Class cls = classLoader.getClz("com.king.tool.MyTool");
         Object Hello = cls.newInstance();
         Method m = Hello.getClass().getMethod("process");

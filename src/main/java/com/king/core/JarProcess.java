@@ -18,22 +18,23 @@ import java.util.regex.Pattern;
  * <p>
  * Created by king on 2017/5/2.
  */
-public class JarDownload {
-    private static final Log log = LogFactory.getLog(JarDownload.class);
+public class JarProcess {
+    private static final Log log = LogFactory.getLog(JarProcess.class);
 
     /**
      * 拉取依赖Jar包
      *
-     * @param path 指定路径，将会在此路径下生成pom.xml，创建jar文件夹，并拷贝依赖的jar包到jar文件夹下
+     * @param containerName 容器名，将会在此容器所在路径下生成pom.xml，创建jar文件夹，并拷贝依赖的jar包到jar文件夹下
      * @param dependencies 依赖的dependency信息
      * @throws IOException 创建pom.xml文件失败
      * @throws MvnBuildFailException mvn命令执行失败
      */
-    public static void download(String path, List<Dependency> dependencies) throws IOException, MvnBuildFailException {
+    public static void deployJar(String containerName, List<Dependency> dependencies) throws IOException, MvnBuildFailException {
         List<String> configs = new ArrayList<String>();
         for (Dependency dependency : dependencies)
             configs.add(exchangeDependencyToConfig(dependency));
 
+        String path = Constants.CONTAINER_BASE_PATH + File.separatorChar + containerName;
         //在指定路径下，根据依赖信息，创建pom文件
         createPom(path, configs);
         //执行mvn install，拉取jar包到本地repository

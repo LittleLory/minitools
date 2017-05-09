@@ -14,7 +14,16 @@ import java.io.StringReader;
 public class ClassCreater {
     private static final Log log = LogFactory.getLog(ClassCreater.class);
 
-    public static Class create(String name, String code, ClassLoader loader) throws CannotCompileException, NotFoundException, IOException, ClassNotFoundException {
+    /**
+     * 在指定classloader中，创建自定义代码生成的class
+     * @param name 类名
+     * @param code 自定义代码
+     * @param loader 目标classloader
+     * @return 生成的class对象
+     * @throws CannotCompileException 自定义代码编译失败
+     * @throws IOException 解析自定义代码异常
+     */
+    public static Class create(String name, String code, ClassLoader loader) throws CannotCompileException, IOException {
         ClassPool pool = ClassPool.getDefault();
 
         //以classPath的形式，加载自定义classloader到pool，以解决编译代码时找不到import的类

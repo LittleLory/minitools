@@ -1,11 +1,12 @@
 package com.king.hello;
 
+import com.king.core.ContainerManager;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import com.king.core.ClassContainer;
+import com.king.core.Container;
 
 import java.lang.reflect.Method;
 
@@ -19,13 +20,6 @@ public class SampleController {
     @RequestMapping("/")
     @ResponseBody
     String home() throws Exception {
-
-        ClassContainer classLoader = new ClassContainer("contract");
-        Class cls = classLoader.getClz("com.king.contract.Hello2");
-        Object Hello = cls.newInstance();
-        Method m = Hello.getClass().getMethod("process");
-        m.invoke(Hello);
-
         return "Hello2 World!";
     }
 

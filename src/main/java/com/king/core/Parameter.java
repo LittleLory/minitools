@@ -1,5 +1,7 @@
 package com.king.core;
 
+import com.king.utils.ParamType;
+
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -10,13 +12,15 @@ import java.util.List;
  * Created by king on 2017/4/27.
  */
 public class Parameter {
-    public String type;//数据类型
+    public ParamType type;//数据类型
     public String name;//参数名
+    public String show;//展示名称
     public int sort;//排序
 
-    public Parameter(String type, String name, int sort) {
+    public Parameter(ParamType type, String name, String show, int sort) {
         this.type = type;
         this.name = name;
+        this.show = show;
         this.sort = sort;
     }
 
@@ -24,7 +28,7 @@ public class Parameter {
         Collections.sort(parameters, sortCompare);
         StringBuilder sb = new StringBuilder();
         for (Parameter parameter : parameters)
-            sb.append(",").append(parameter.type).append(" ").append(parameter.name);
+            sb.append(",").append(parameter.type.className()).append(" ").append(parameter.name);
         return sb.substring(1);
     }
 
