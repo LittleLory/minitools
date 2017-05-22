@@ -45,15 +45,14 @@ public class JarProcess {
 
 
     private static void copyJar(String path, List<Dependency> dependencies) throws FileNotFoundException {
+        String targetPath = path + File.separatorChar + "jar";
+        File targetDir = new File(targetPath);
+        if (!targetDir.exists())
+            if(!targetDir.mkdir())
+                throw new FileNotFoundException("[copyJar]not found jar["+targetDir+"] dir, and create jar dir failed...");
+
         for (Dependency dependency : dependencies) {
             String jarPath = exchangeDependencyToPath(dependency);
-            String targetPath = path + File.separatorChar + "jar";
-            File targetDir = new File(targetPath);
-            if (!targetDir.exists())
-                if(!targetDir.mkdir())
-                    throw new FileNotFoundException("[copyJar]not found jar["+targetDir+"] dir, and create jar dir failed...");
-
-
             String out = OSExecutor.command(targetPath, "cp " + jarPath + " .");
             if (StringUtils.isNotBlank(out))
                 throw new OSExcuteException("[copyJar]copy jar["+jarPath+"] to ["+targetPath+"] error! out = ["+out+"].");
@@ -63,7 +62,7 @@ public class JarProcess {
     private static final Pattern pattern = Pattern.compile("\\S*\\.jar");
 
     private static String exchangeDependencyToPath(Dependency dependency) throws FileNotFoundException {
-        String dirPath = Constants.M2_REPOSITORY + File.separatorChar + dependency.groupId.replace(".", "/") + File.separatorChar + dependency.artifactId + File.separatorChar + dependency.version;
+        String dirPath = Constants.M2_REPOSITORY + File.separatorChar + dependency.getGroupId().replace(".", "/") + File.separatorChar + dependency.getArtifactId() + File.separatorChar + dependency.getVersion();
         File dir = new File(dirPath);
         if (!dir.exists())
             throw new FileNotFoundException("dir[" + dirPath + "] not found!");
@@ -115,9 +114,9 @@ public class JarProcess {
 
     private static String exchangeDependencyToConfig(Dependency dependency) {
         return "<dependency>\n" +
-                "            <groupId>" + dependency.groupId + "</groupId>\n" +
-                "            <artifactId>" + dependency.artifactId + "</artifactId>\n" +
-                "            <version>" + dependency.version + "</version>\n" +
+                "            <groupId>" + dependency.getGroupId() + "</groupId>\n" +
+                "            <artifactId>" + dependency.getArtifactId() + "</artifactId>\n" +
+                "            <version>" + dependency.getVersion() + "</version>\n" +
                 "        </dependency>";
     }
 }

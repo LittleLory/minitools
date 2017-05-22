@@ -12,10 +12,13 @@ import java.util.List;
  * Created by king on 2017/4/27.
  */
 public class Parameter {
-    public ParamType type;//数据类型
-    public String name;//参数名
-    public String show;//展示名称
-    public int sort;//排序
+    private ParamType type;//数据类型
+    private String name;//参数名
+    private String show;//展示名称
+    private int sort;//排序
+
+    public Parameter() {
+    }
 
     public Parameter(ParamType type, String name, String show, int sort) {
         this.type = type;
@@ -39,4 +42,53 @@ public class Parameter {
         }
     };
 
+    public ParamType getType() {
+        return type;
+    }
+
+    public void setType(ParamType type) {
+        this.type = type;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getShow() {
+        return show;
+    }
+
+    public void setShow(String show) {
+        this.show = show;
+    }
+
+    public int getSort() {
+        return sort;
+    }
+
+    public void setSort(int sort) {
+        this.sort = sort;
+    }
+
+    public static Comparator<Parameter> getSortCompare() {
+        return sortCompare;
+    }
+
+    public static void setSortCompare(Comparator<Parameter> sortCompare) {
+        Parameter.sortCompare = sortCompare;
+    }
+
+    @Override
+    public String toString() {
+        return "Parameter{" +
+                "type=" + type +
+                ", name='" + name + '\'' +
+                ", show='" + show + '\'' +
+                ", sort=" + sort +
+                '}';
+    }
 }

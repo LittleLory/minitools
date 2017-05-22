@@ -46,6 +46,6 @@ public class CodeProcess {
      * @return 模板
      */
     public static String createCodeTemplate(List<Parameter> parameters) {
-        return "public static String process(" + Parameter.toParameterCode(parameters) + ") throws Exception {\n}\n";
+        return "public static String process(" + Parameter.toParameterCode(parameters) + ") throws Exception {\n\n}\n";
     }
 }

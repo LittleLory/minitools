@@ -22,33 +22,33 @@ public class TotalTest {
     @Before
     public void before() {
         entry  = new ToolEntry();
-        entry.entryId = 1;
-        entry.entryName = "加法器";
+        entry.setEntryId(1);
+        entry.setEntryName("加法器");
 
         List<Parameter> parameters = new ArrayList<Parameter>(){{
             add(new Parameter(ParamType.INT, "a", "A", 1));
             add(new Parameter(ParamType.INT, "b", "B", 1));
         }};
-        entry.parameters = parameters;
+        entry.setParameters(parameters);
 
         List<Dependency> dependencies = new ArrayList<Dependency>(){{
             add(new Dependency("com.alibaba", "fastjson", "1.2.31"));
         }};
-        entry.dependencies = dependencies;
+        entry.setDependencies(dependencies);
 
-        entry.code = "import com.alibaba.fastjson.JSON;\n" +
+        entry.setCode("import com.alibaba.fastjson.JSON;\n" +
                 "import java.util.Date;\n" +
                 "public static String process(Integer a,Integer b) throws Exception {\n" +
                 "\tSystem.out.println(\"result: \" + (a+b));\n" +
                 "\tSystem.out.println(\"time: \" + JSON.toJSONString(new Date()));\n" +
                 "\treturn (a+b) + \"\";" +
-                "}";
+                "}");
 
     }
 
     @Test
     public void 生成模板代码() {
-        System.out.println(CodeProcess.createCodeTemplate(entry.parameters));
+        System.out.println(CodeProcess.createCodeTemplate(entry.getParameters()));
     }
 
     @Test
@@ -60,7 +60,7 @@ public class TotalTest {
     public void 加载容器() throws Exception {
         ContainerManager.load(entry.getContainerName());
 
-        String invokeResult = Invoke.invoke(entry.getContainerName(), entry.parameters);
+        String invokeResult = Invoke.invoke(entry.getContainerName(), entry.getParameters(), new Object[]{1, 2});
         System.out.println(invokeResult);
     }
 }

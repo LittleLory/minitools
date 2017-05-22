@@ -28,8 +28,8 @@ public class ContainerManager {
         if (!dir.exists())
             if (!dir.mkdir())
                 throw new RuntimeException("create container dir["+dir.getPath()+"] failed...");
-        CodeProcess.deployCode(containerName, entry.code);
-        JarProcess.deployJar(containerName, entry.dependencies);
+        CodeProcess.deployCode(containerName, entry.getCode());
+        JarProcess.deployJar(containerName, entry.getDependencies());
     }
 
     //加载容器

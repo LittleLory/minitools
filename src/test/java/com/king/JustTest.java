@@ -1,10 +1,14 @@
 package com.king;
 
 import org.apache.commons.lang3.ArrayUtils;
+import org.apache.commons.lang3.CharEncoding;
 import org.junit.Test;
 
 import java.io.File;
 import java.io.FilenameFilter;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -36,5 +40,16 @@ public class JustTest {
             System.out.println(file.mkdir());
             System.out.println(file.canWrite());
         }
+    }
+
+    @Test
+    public void decodeUrl() throws UnsupportedEncodingException {
+        String s = URLDecoder.decode("%E4%B8%AD%E5%9B%BD", "utf8");
+        System.out.println(s);
+    }
+
+    @Test
+    public void encodeUrl() throws UnsupportedEncodingException {
+        System.out.println(URLEncoder.encode("%E4%B8%AD%E5%9B%BD", "utf8"));
     }
 }
